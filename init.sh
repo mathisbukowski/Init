@@ -75,25 +75,23 @@ fi
 if [ ! -d "src" ]; then
     echo "Creating directory 'src'"
     mkdir -p "src"
+    echo "/*
+    ** EPITECH PROJECT, 2024
+    ** ${PROJECT}
+    ** File description:
+    ** Here is a description
+    */
+
+    #include <stdio.h>
+
+    int main(int ac, char **av)
+    {
+        printf(\"Hello World\");
+        return 0;
+    }" > src/main.c
 else
     echo "Directory 'src' already exists"
-    exit 1
 fi
-cd src
-echo "/*
-** EPITECH PROJECT, 2024
-** ${PROJECT}
-** File description:
-** Here is a description
-*/
-
-#include <stdio.h>
-
-int main(int ac, char **av)
-{
-    printf(\"Hello World\");
-    return 0;
-}" > main.c
 
 sleep 2
 echo "Source Directory created."
@@ -103,25 +101,23 @@ echo "Source Directory created."
 if [ ! -d "include" ]; then
     echo "Creating directory 'include'"
     mkdir -p "include"
+    echo "/*
+    ** EPITECH PROJECT, 2024
+    ** ${PROJECT}
+    ** File description:
+    ** Here is a description
+    */
+
+    #ifndef ${PROJECT}_H
+        #define ${PROJECT}_H
+        #include <stdlib.h>
+        #include <stdio.h>
+
+    #endif /* ${PROJECT}_H */
+    " > include/${PROJECT}.h
 else
     echo "Directory 'include' already exists"
-    exit 1
 fi
-cd src
-echo "/*
-** EPITECH PROJECT, 2024
-** ${PROJECT}
-** File description:
-** Here is a description
-*/
-
-#ifndef ${PROJECT}_H
-    #define ${PROJECT}_H
-    #include <stdlib.h>
-    #include <stdio.h>
-
-#endif /* ${PROJECT}_H */
-" > ${PROJECT}.h
 
 sleep 2
 echo "Include Directory created."
