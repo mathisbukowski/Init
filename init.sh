@@ -34,11 +34,11 @@ fclean: clean
 
 re: fclean all" > Makefile
 
-echo "Makefile successfully created for ${PROJECT} project.\n"
+echo "Makefile successfully created for ${PROJECT} project."
 
 # INIT GITIGNORE
 
-touch .gitignore.test
+touch .gitignore.template
 echo "Do you want to ignore .idea ?"
 read -p "Enter your choice: (Yes/No) " choice
 
@@ -69,3 +69,26 @@ if [[ "${choice}" = "Yes" ]]; then
 else
     echo "Not added. ❌"
 fi
+
+# SRC INIT
+
+echo "Source Directory in progress..."
+mkdir src
+cd src
+echo "/*
+** EPITECH PROJECT, 2024
+** ${PROJECT}
+** File description:
+** Here is a description
+*/
+
+#include <stdio.h>
+
+int main(int ac, char **av)
+{
+    printf(\"Hello World\");
+    return 0;
+}" > main.c
+
+sleep 2
+echo "Source Directory created."
