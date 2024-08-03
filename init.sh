@@ -72,8 +72,13 @@ fi
 
 # SRC INIT
 
-echo "Source Directory in progress..."
-mkdir src
+if [ ! -d "src" ]; then
+    echo "Creating directory 'src'"
+    mkdir -p "src"
+else
+    echo "Directory 'src' already exists"
+    exit 1
+fi
 cd src
 echo "/*
 ** EPITECH PROJECT, 2024
