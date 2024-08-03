@@ -97,3 +97,31 @@ int main(int ac, char **av)
 
 sleep 2
 echo "Source Directory created."
+
+# INCLUDE INIT
+
+if [ ! -d "include" ]; then
+    echo "Creating directory 'include'"
+    mkdir -p "include"
+else
+    echo "Directory 'include' already exists"
+    exit 1
+fi
+cd src
+echo "/*
+** EPITECH PROJECT, 2024
+** ${PROJECT}
+** File description:
+** Here is a description
+*/
+
+#ifndef ${PROJECT}_H
+    #define ${PROJECT}_H
+    #include <stdlib.h>
+    #include <stdio.h>
+
+#endif /* ${PROJECT}_H */
+" > ${PROJECT}.h
+
+sleep 2
+echo "Include Directory created."
