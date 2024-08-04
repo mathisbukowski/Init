@@ -24,13 +24,13 @@ CFLAGS =  -Wall -Wextra -g
 all : \$(NAME)
 
 \$(NAME) :
-\tgcc \$(CFLAGS) \$(SRC) -o \$(NAME) -I./include/
+    gcc \$(CFLAGS) \$(SRC) -o \$(NAME) -I./include/
 
 clean:
-\trm -f \$(OBJ)
+    rm -f \$(OBJ)
 
 fclean: clean
-\trm -f \$(NAME)
+    rm -f \$(NAME)
 
 re: fclean all" > Makefile
 
