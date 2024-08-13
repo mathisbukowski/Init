@@ -8,6 +8,12 @@ if [ -z "${PROJECT}" ]; then
     exit 1
 fi
 
+echo "Do you want to make a global initialization ?"
+read -p "Enter your choice ? (Yes/No)" choice
+
+if [[ "${choice}" = "Yes" ]]; then
+        
+
 echo "##
 ## EPITECH PROJECT, 2024
 ## ${PROJECT}
