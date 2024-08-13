@@ -8,6 +8,73 @@ if [ -z "${PROJECT}" ]; then
     exit 1
 fi
 
+echo "Do you want to make a global initialization ?"
+read -p "Enter your choice ? (Yes/No)" choosen
+
+if [[ "${choosen}" = "Yes" ]]; then
+    echo "##
+    ## EPITECH PROJECT, 2024
+    ## ${PROJECT}
+    ## File description:
+    ## Here is a description
+    ##
+
+    SRC = src/main.c
+
+    NAME = ${PROJECT}
+
+    CFLAGS =  -Wall -Wextra -g
+
+    all : \$(NAME)
+
+    \$(NAME) :
+        gcc \$(CFLAGS) \$(SRC) -o \$(NAME) -I./include/
+
+    clean:
+        rm -f \$(OBJ)
+
+    fclean: clean
+        rm -f \$(NAME)
+
+    re: fclean all" > Makefile
+    echo ".idea/
+    vgcore.*
+    *.gcno
+    *.gcda
+    *.o" > .gitignore.template
+    mkdir -p "src"
+    echo "/*
+    ** EPITECH PROJECT, 2024
+    ** ${PROJECT}
+    ** File description:
+    ** Here is a description
+    */
+
+    #include <stdio.h>
+
+    int main(int ac, char **av)
+    {
+        printf(\"Hello World\");
+        return 0;
+    }" > src/main.c
+    mkdir -p "include"
+    echo "/*
+    ** EPITECH PROJECT, 2024
+    ** ${PROJECT}
+    ** File description:
+    ** Here is a description
+    */
+
+    #ifndef ${PROJECT}_H
+        #define ${PROJECT}_H
+        #include <stdlib.h>
+        #include <stdio.h>
+
+    #endif /* ${PROJECT}_H */
+    " > include/${PROJECT}.h
+    exit 0
+fi
+
 echo "##
 ## EPITECH PROJECT, 2024
 ## ${PROJECT}
@@ -38,7 +105,6 @@ echo "Makefile successfully created for ${PROJECT} project."
 
 # INIT GITIGNORE
 
-touch .gitignore.template
 echo "Do you want to ignore .idea ?"
 read -p "Enter your choice: (Yes/No) " choice
 
