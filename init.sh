@@ -72,6 +72,7 @@ if [[ "${choosen}" = "Yes" ]]; then
 
     #endif /* ${PROJECT}_H */
     " > include/${PROJECT}.h
+    echo "Project initialized with success."
     exit 0
 fi
 
