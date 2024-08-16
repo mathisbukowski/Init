@@ -1,15 +1,29 @@
 #!/bin/bash
 
+# BOLDGREEN="\033[0;1;${GREEN}m"
+# Define of Colors
+RED="\033[0;31m"
+GREEN="\033[0;32m"
+YELLOW="\033[0;33m"
+BLUE="\033[0;34m"
+MAGENTA="\033[0;35m"
+ENDCOLOR="\033[0m"
 PROJECT=$1
 # INIT MAKEFILE
 
+printLineWithColor () {
+    local color=$1
+    local message=$2
+    echo -e "${color}${message}${ENDCOLOR}"
+}
+
 if [ -z "${PROJECT}" ]; then
-    echo "No value for the project name. Please retry."
+    echo -e "No value for the project name. ${RED}Please retry.${ENDCOLOR}"
     exit 1
 fi
 
-echo "Do you want to make a global initialization ?"
-read -p "Enter your choice ? (Yes/No)" choosen
+printLineWithColor ${BLUE} "Do you want to make a global initialization ?"
+read -p "$(echo -e "${YELLOW}Enter your choice ? (Yes/No) ${ENDCOLOR}")" choosen
 
 if [[ "${choosen}" = "Yes" ]]; then
     echo "##
@@ -72,7 +86,7 @@ if [[ "${choosen}" = "Yes" ]]; then
 
     #endif /* ${PROJECT}_H */
     " > include/${PROJECT}.h
-    echo "Project initialized with success."
+    printLineWithColor ${GREEN} "Project initialized with success."
     exit 0
 fi
 
@@ -102,45 +116,45 @@ fclean: clean
 
 re: fclean all" > Makefile
 
-echo "Makefile successfully created for ${PROJECT} project."
+printLineWithColor ${GREEN} "Makefile successfully created for ${PROJECT} project."
 
 # INIT GITIGNORE
 
-echo "Do you want to ignore .idea ?"
-read -p "Enter your choice: (Yes/No) " choice
+printLineWithColor ${BLUE} "Do you want to ignore .idea ?"
+read -p "$(echo -e "${YELLOW}Enter your choice ? (Yes/No) ${ENDCOLOR}")" choice
 
 if [[ "${choice}" = "Yes" ]]; then
     echo ".idea/" > .gitignore.template
-    echo "Successfully added to gitignore. ✅"
+    printLineWithColor ${GREEN} "Successfully added to gitignore. ✅"
 else
-    echo "Not added. ❌"
+    printLineWithColor ${RED} "Not added. ❌"
 fi
 
-echo "Do you want to ignore valgrind files ?"
-read -p "Enter your choice: (Yes/No) " choice
+printLineWithColor ${BLUE} "Do you want to ignore valgrind files ?"
+read -p "$(echo -e "${YELLOW}Enter your choice ? (Yes/No) ${ENDCOLOR}")" choice
 
 if [[ "${choice}" = "Yes" ]]; then
     echo "vgcore.*" >> .gitignore.template
-    echo "Successfully added to gitignore. ✅"
+    printLineWithColor ${GREEN} "Successfully added to gitignore. ✅"
 else
-    echo "Not added. ❌"
+    printLineWithColor ${RED} "Not added. ❌"
 fi
 
-echo "Do you want to ignore unit test files ?"
-read -p "Enter your choice: (Yes/No) " choice
+printLineWithColor ${BLUE} "Do you want to ignore unit test files ?"
+read -p "$(echo -e "${YELLOW}Enter your choice ? (Yes/No) ${ENDCOLOR}")" choice
 
 if [[ "${choice}" = "Yes" ]]; then
     echo "*.gcno" >> .gitignore.template
     echo "*.gcda" >> .gitignore.template
-    echo "Successfully added to gitignore. ✅"
+    printLineWithColor ${GREEN} "Successfully added to gitignore. ✅"
 else
-    echo "Not added. ❌"
+    printLineWithColor ${RED} "Not added. ❌"
 fi
 
 # SRC INIT
 
 if [ ! -d "src" ]; then
-    echo "Creating directory 'src'"
+    printLineWithColor ${BLUE} "Creating directory 'src'"
     mkdir -p "src"
     echo "/*
     ** EPITECH PROJECT, 2024
@@ -157,16 +171,16 @@ if [ ! -d "src" ]; then
         return 0;
     }" > src/main.c
 else
-    echo "Directory 'src' already exists"
+    printLineWithColor ${RED} "Directory 'src' already exists"
 fi
 
 sleep 2
-echo "Source Directory created."
+printLineWithColor ${GREEN} "Source Directory created."
 
 # INCLUDE INIT
 
 if [ ! -d "include" ]; then
-    echo "Creating directory 'include'"
+    printLineWithColor ${BLUE} "Creating directory 'include'"
     mkdir -p "include"
     echo "/*
     ** EPITECH PROJECT, 2024
@@ -183,8 +197,8 @@ if [ ! -d "include" ]; then
     #endif /* ${PROJECT}_H */
     " > include/${PROJECT}.h
 else
-    echo "Directory 'include' already exists"
+    printLineWithColor ${RED} "Directory 'include' already exists"
 fi
 
 sleep 2
-echo "Include Directory created."
+printLineWithColor ${GREEN} "Include Directory created."
