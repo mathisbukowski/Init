@@ -1,0 +1,8 @@
+.idea/
+.vscode/
+*.txt
+*.o
+*.a
+vgcore.*
+*.gcno
+*.gcda
