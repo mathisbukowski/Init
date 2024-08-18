@@ -1,0 +1,87 @@
+name: deploy
+
+env:
+  EXECUTABLES: "EXEC"
+  ARGS: ""
+  MIRROR_URL: "MIRROR_URL"
+  MIRROR_NAME: "MIRROR_NAME"
+
+on:
+  push:
+    branches-ignore:
+      - "ga-ignore-*"
+  pull_request:
+    branches-ignore:
+      - "ga-ignore-*"
+    paths:
+      - ".github/workflows/**"
+jobs:
+  check_coding_style:
+    runs-on: ubuntu-latest
+    if: github.repository != 'MIRROR_URL'
+    needs: check_repo_size
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: check_coding_style
+        run: |
+          check.sh "$(pwd)" "$(pwd)"
+          codingLogFile="$(pwd)/coding-style-reports.log"
+          if [ -s "$codingLogFile" ]; then
+            while IFS= read -r line; do
+              IFS=':' read -ra fields <<< "$line"
+              file="${fields[0]}"
+              line="${fields[1]}"
+              name="${fields[2]}"
+              type="${fields[3]}"
+              echo "::error title=$name coding style error,file=$file,line=$line::$type"
+            done < "$codingLogFile"
+            exit 1
+          else
+            echo "No coding style errors detected"
+          fi
+
+  check_program_compilation:
+    runs-on: ubuntu-latest
+    if: github.repository != 'MIRROR_URL'
+    container:
+      image: epitechcontent/epitest-docker:latest
+    needs: check_coding_style
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Compile the program"
+        run: make
+        timeout-minutes: 2
+      - name: "Clean the repo"
+        run: make clean
+
+      - name: "Verify executable permissions and verify all executables are there"
+        run: |
+          IFS=',' read -ra ADDR <<< "$EXECUTABLES"
+          for i in "${ADDR[@]}"; do
+              if [ -f "$i" ] && [ -x "$i" ]; then
+                  echo "$i exists and is executable."
+                  exit 0
+              else
+                  echo "$i does not exist or is not executable."
+                  exit 1
+              fi
+          done
+
+  push_to_mirror:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.repository != 'MIRROR_URL'
+    needs: check_program_compilation
+    container:
+      image: epitechcontent/epitest-docker:latest
+    steps:
+      - name: Exit if this is the mirror repository
+        run: exit 0
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url: ${{ env.MIRROR_URL }}
+          ssh_private_key: ${{ secrets.GIT_SSH_PRIVATE_KEY  }}
