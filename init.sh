@@ -48,4 +48,17 @@ cp -a "Init-$BRANCH/$TEMPLATE_DIR/$TEMPLATE_CHOICE/." "./$PROJECT_NAME/"
 rm -rf "Init-$BRANCH"
 rm template.zip
 
+read -p "$(echo -e "${YELLOW}Do you want to add Github workflows ? (Yes/No) ${ENDCOLOR}")" choice
+
+if [[ -z "$choice" || "$choice" == "Yes" ]]; then
+    TEMPLATE_ZIP_URL="${BASE_URL}/archive/refs/heads/$BRANCH.zip"
+    curl -L -o template.zip $TEMPLATE_ZIP_URL
+    unzip template.zip "Init-$BRANCH/$TEMPLATE_DIR/$TEMPLATE_CHOICE/*" -d ./
+    mkdir -p "./$PROJECT_NAME/.workflows"
+    cp -a "Init-$BRANCH/$TEMPLATE_DIR/Devops/.workflows/." "./$PROJECT_NAME/.workflows/"
+    rm -rf "Init-$BRANCH"
+    rm template.zip
+    printLineWithColor $GREEN "Devops finally set up."
+fi
+
 printLineWithColor $GREEN "The template '$TEMPLATE_CHOICE' is ready to use in the project '$PROJECT_NAME'."
