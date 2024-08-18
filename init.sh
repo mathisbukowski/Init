@@ -28,6 +28,11 @@ if [ -z "$PROJECT_NAME" ] || [ -z "$REPO_URL" ]; then
     exit 1
 fi
 
+printLineWithColor $BLUE "Cloning the repository..."
+git clone $REPO_URL $PROJECT_NAME
+sleep 2
+printLineWithColor $GREEN "Repository has been cloned with success."
+
 printLineWithColor $BLUE "Please choose a template from the following options :"
 curl -s $API_URL | grep '"name"' | cut -d '"' -f 4
 
@@ -36,19 +41,11 @@ read -p "Enter the name of the template: " TEMPLATE_CHOICE
 TEMPLATE_ZIP_URL="${BASE_URL}/archive/refs/heads/$BRANCH.zip"
 curl -L -o template.zip $TEMPLATE_ZIP_URL
 
-unzip template.zip "${BASE_URL##*/}-$BRANCH/$TEMPLATE_DIR/$TEMPLATE_CHOICE/*" -d ./
+unzip template.zip "Init-$BRANCH/$TEMPLATE_DIR/$TEMPLATE_CHOICE/*" -d ./
 
-mv "${BASE_URL##*/}-$BRANCH/$TEMPLATE_DIR/$TEMPLATE_CHOICE" "./$PROJECT_NAME"
+cp -a "Init-$BRANCH/$TEMPLATE_DIR/$TEMPLATE_CHOICE/." "./$PROJECT_NAME/"
 
-rm -rf "${BASE_URL##*/}-$BRANCH"
+rm -rf "Init-$BRANCH"
 rm template.zip
-
-printLineWithColor ${YELLOW} "Changing the remote origin URL..."
-git remote set-url origin $REPO_URL
-
-sleep 2
-git remote -v
-
-printLineWithColor ${RED} "Successfully changed."
 
 printLineWithColor $GREEN "The template '$TEMPLATE_CHOICE' is ready to use in the project '$PROJECT_NAME'."
