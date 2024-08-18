@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # GLOBAL VARS
 PROJECT_NAME=$1
@@ -53,9 +54,9 @@ read -p "$(echo -e "${YELLOW}Do you want to add Github workflows ? (Yes/No) ${EN
 if [[ -z "$choice" || "$choice" == "Yes" ]]; then
     TEMPLATE_ZIP_URL="${BASE_URL}/archive/refs/heads/$BRANCH.zip"
     curl -L -o template.zip $TEMPLATE_ZIP_URL
-    unzip template.zip "Init-$BRANCH/$TEMPLATE_DIR/$TEMPLATE_CHOICE/*" -d ./
-    mkdir -p "./$PROJECT_NAME/.workflows"
-    cp -a "Init-$BRANCH/$TEMPLATE_DIR/Devops/.workflows/." "./$PROJECT_NAME/.workflows/"
+    unzip template.zip "Init-$BRANCH/$TEMPLATE_DIR/Devops/*" -d ./
+    mkdir -p "./$PROJECT_NAME/.github/"
+    cp -r "Init-$BRANCH/$TEMPLATE_DIR/Devops/.github/workflows/" "./$PROJECT_NAME/.github"
     rm -rf "Init-$BRANCH"
     rm template.zip
     printLineWithColor $GREEN "Devops finally set up."
