@@ -19,7 +19,6 @@ jobs:
   check_coding_style:
     runs-on: ubuntu-latest
     if: github.repository != 'MIRROR_URL'
-    needs: check_repo_size
     container:
       image: ghcr.io/epitech/coding-style-checker:latest
     steps:
