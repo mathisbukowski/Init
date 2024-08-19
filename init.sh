@@ -66,6 +66,7 @@ read -p "$(echo -e "${YELLOW}Do you want to push the work on the repo ? (Yes/No)
 
 if [[ -z "$choice" || "$choice" == "Yes" ]]; then
     printLineWithColor $BLUE "Loading for push..."
+    cd "./$PROJECT_NAME"
     git add .
     git commit -m "feat(init): adding the base of the projet $PROJECT_NAME."
     git push origin main
