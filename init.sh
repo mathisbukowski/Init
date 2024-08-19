@@ -62,4 +62,16 @@ if [[ -z "$choice" || "$choice" == "Yes" ]]; then
     printLineWithColor $GREEN "Devops finally set up."
 fi
 
+read -p "$(echo -e "${YELLOW}Do you want to push the work on the repo ? (Yes/No) ${ENDCOLOR}")" choice
+
+if [[ -z "$choice" || "$choice" == "Yes" ]]; then
+    printLineWithColor $BLUE "Loading for push..."
+    git add .
+    git commit -m "feat(init): adding the base of the projet $PROJECT_NAME."
+    git push origin main
+    printLineWithColor $GREEN "All features are pushed."
+else
+    printLineWithColor $RED "Changes not pushed."
+fi
+
 printLineWithColor $GREEN "The template '$TEMPLATE_CHOICE' is ready to use in the project '$PROJECT_NAME'."
