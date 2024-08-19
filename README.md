@@ -1,3 +1,4 @@
+![Init Logo](logo.jpeg)
 # Init
 Project to init a simple start for epitech project and more !
 
@@ -11,16 +12,16 @@ To run and use this project, you will need the following:
 
 ## Features
 
-Init has been created for initialize Epitech Projects. So you have many features :
+Init has been created to initialize Epitech Projects. It includes many features:
 
 - Initialize many setup like ASM, C, CSFML, Haskell...
 - Initialize a workflow with a deploy action.
-- Push changes on the repository given in parameters
-- And others features who are coming!
+- Push changes to the repository specified as a parameter.
+- And more features are coming soon!
 
 ## Usage
 
-However to use Init, you have to download the init.sh. Now, follow the steps below :
+To use Init, you need to download the init.sh script. Then, follow these steps:
 
 ### Rename the script for general use:
 ```bash
@@ -34,7 +35,7 @@ However to use Init, you have to download the init.sh. Now, follow the steps bel
 ```bash
     sudo mv init /usr/local/bin
 ```
-### Verify !
+### Verify installation:
 ```bash
     which init
 ```
@@ -42,8 +43,7 @@ However to use Init, you have to download the init.sh. Now, follow the steps bel
 ### And that's it !
 
 ## Contributing
-Contributions are welcome ! Please fork the repository and create a pull request to contribute.
-
+Contributions are welcome! Please fork the repository and create a pull request to contribute.
 ## Authors
 
 - Mathis Bukowski
