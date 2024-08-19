@@ -1,4 +1,5 @@
 <img src="logo.jpeg" alt="Init Logo" width="100px"/>
+
 # Init
 Project to init a simple start for epitech project and more !
 
