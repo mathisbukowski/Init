@@ -47,4 +47,4 @@ To use Init, you need to download the init.sh script. Then, follow these steps:
 Contributions are welcome! Please fork the repository and create a pull request to contribute.
 ## Authors
 
-- Mathis Bukowski
+- [Mathis Bukowski](https://www.linkedin.com/in/mathisbukowski/)
