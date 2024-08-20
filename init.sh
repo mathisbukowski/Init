@@ -51,28 +51,44 @@ rm template.zip
 
 read -p "$(echo -e "${YELLOW}Do you want to add Github workflows ? (Yes/No) ${ENDCOLOR}")" choice
 
-if [[ -z "$choice" || "$choice" == "Yes" ]]; then
-    TEMPLATE_ZIP_URL="${BASE_URL}/archive/refs/heads/$BRANCH.zip"
-    curl -L -o template.zip $TEMPLATE_ZIP_URL
-    unzip template.zip "Init-$BRANCH/$TEMPLATE_DIR/Devops/*" -d ./
-    mkdir -p "./$PROJECT_NAME/.github/"
-    cp -r "Init-$BRANCH/$TEMPLATE_DIR/Devops/.github/workflows/" "./$PROJECT_NAME/.github"
-    rm -rf "Init-$BRANCH"
-    rm template.zip
-    printLineWithColor $GREEN "Devops finally set up."
-fi
+case $choice in
+
+    Yes | yes | y | Y)
+        TEMPLATE_ZIP_URL="${BASE_URL}/archive/refs/heads/$BRANCH.zip"
+        curl -L -o template.zip $TEMPLATE_ZIP_URL
+        unzip template.zip "Init-$BRANCH/$TEMPLATE_DIR/Devops/*" -d ./
+        mkdir -p "./$PROJECT_NAME/.github/"
+        cp -r "Init-$BRANCH/$TEMPLATE_DIR/Devops/.github/workflows/" "./$PROJECT_NAME/.github"
+        rm -rf "Init-$BRANCH"
+        rm template.zip
+        printLineWithColor $GREEN "Devops finally set up."
+        ;;
+    No | no | N | n)
+        printLineWithColor $RED "Devops not set up."
+        ;;
+    *)
+        printLineWithColor $RED "Invalid Input."
+        ;;
+esac
 
 read -p "$(echo -e "${YELLOW}Do you want to push the work on the repo ? (Yes/No) ${ENDCOLOR}")" choice
 
-if [[ -z "$choice" || "$choice" == "Yes" ]]; then
-    printLineWithColor $BLUE "Loading for push..."
-    cd "./$PROJECT_NAME"
-    git add .
-    git commit -m "feat(init): adding the base of the projet $PROJECT_NAME."
-    git push origin main
-    printLineWithColor $GREEN "All features are pushed."
-else
-    printLineWithColor $RED "Changes not pushed."
-fi
+case $choice in
+
+    Yes | Y | y | yes)
+        printLineWithColor $BLUE "Loading for push..."
+        cd "./$PROJECT_NAME"
+        git add .
+        git commit -m "feat(init): adding the base of the projet $PROJECT_NAME."
+        git push origin main
+        printLineWithColor $GREEN "All features are pushed."
+        ;;
+    No | N | n | no)
+        printLineWithColor $RED "Changes not pushed."
+        ;;
+    *)
+        printLineWithColor $RED "Invalid input"
+        ;;
+esac
 
 printLineWithColor $GREEN "The template '$TEMPLATE_CHOICE' is ready to use in the project '$PROJECT_NAME'."
