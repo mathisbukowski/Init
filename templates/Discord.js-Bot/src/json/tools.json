@@ -1,0 +1,6 @@
+{
+    "guildId": "guildid",
+    "clientId": "clientid",
+    "devs": ["devs"],
+    "logsChannel": "LOGSCHANNEL"
+}
