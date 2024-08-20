@@ -9,7 +9,7 @@ To run and use this project, you will need the following:
 
 - A Unix-like operating system (Linux, macOS)
 - Bash (```sudo apt install bash```)
-- Git (``` sudo apt install git```)
+- Git (```sudo apt install git```)
 
 ## Features
 
