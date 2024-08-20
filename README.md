@@ -24,6 +24,12 @@ Init has been created to initialize Epitech Projects. It includes many features:
 
 To use Init, you need to download the init.sh script. Then, follow these steps:
 
+### Clone the project:
+```bash
+    git clone git@github.com:mathisbukowski/Init.git
+    cd Init
+```
+
 ### Rename the script for general use:
 ```bash
     mv init.sh init
