@@ -1,0 +1,1 @@
+sudo apt install git docker.io docker-compose ansible
