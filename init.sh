@@ -51,11 +51,20 @@ rm template.zip
 
 line=$(head -n 1 "./$PROJECT_NAME/dependencies.txt")
 
-if [[ -z "$line" ]]; then
-    $line
-else
-    printLineWithColor $RED "Invalid input."
-fi
+read -p "$(echo -e "${YELLOW}Do you want to install dependencies with Init ? (Yes/No) ${ENDCOLOR}")" choice
+
+case $choice in
+
+    Yes | yes | Y | y)
+        eval $line
+        ;;
+    No | no | N | n)
+        printLineWithColor $RED "Dependencies will not be installed."
+        ;;
+    *)
+        printLineWithColor $RED "Invalid input."
+        ;;
+esac
 
 read -p "$(echo -e "${YELLOW}Do you want to add Github workflows ? (Yes/No) ${ENDCOLOR}")" choice
 
