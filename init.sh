@@ -49,6 +49,14 @@ cp -a "Init-$BRANCH/$TEMPLATE_DIR/$TEMPLATE_CHOICE/." "./$PROJECT_NAME/"
 rm -rf "Init-$BRANCH"
 rm template.zip
 
+line=$(head -n 1 "./$PROJECT_NAME/dependencies.txt")
+
+if [[ -z "$line" ]]; then
+    $line
+else
+    printLineWithColor $RED "Invalid input."
+fi
+
 read -p "$(echo -e "${YELLOW}Do you want to add Github workflows ? (Yes/No) ${ENDCOLOR}")" choice
 
 case $choice in
